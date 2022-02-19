@@ -1,0 +1,27 @@
+name: Java CI & CD
+
+on:
+  push:
+    branches: [ master, next/* ]
+  pull_request:
+    branches: [ master, next/* ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: ShadowJar modget-auth
+        run: ./gradlew :shadowJar
+      - name: Upload modget-auth
+        uses: actions/upload-artifact@v2
+        with:
+          name: modget-auth-dev
+          path: modget-auth/build/libs/*.jar
