@@ -1,0 +1,60 @@
+plugins {
+    id "java"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+group = project.maven_group.toString()
+version = project.version
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url = "https://jitpack.io"
+    }
+}
+
+
+dependencies {
+
+    implementation "com.fasterxml.jackson.core:jackson-core:${project.jackson_version}"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${project.jackson_version}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${project.jackson_version}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${project.jackson_version}"
+
+    //DI
+    annotationProcessor "com.google.dagger:dagger-compiler:${project.dagger_google_version}"
+    implementation "com.google.dagger:dagger:${project.dagger_google_version}"
+
+    //Misc
+    implementation "com.squareup.okhttp3:okhttp:${project.okhttp3_version}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${project.okhttp3_version}"
+
+    // JUnit Jupiter for testing
+    testImplementation "org.junit.jupiter:junit-jupiter:${project.junit_version}"
+
+    compileOnly "com.github.spotbugs:spotbugs:${project.spotbugs_version}"
+}
+
+compileJava {
+    options.encoding "UTF-8"
+    options.release.set(11)
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+jar {
+    from "LICENSE"
+    manifest.attributes "Multi-Release": "true"
+}
+
+shadowJar {
+    archiveClassifier.set("")
+}
+
+test {
+    useJUnitPlatform()
+}
