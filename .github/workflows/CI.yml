@@ -24,4 +24,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: modget-auth-dev
-          path: modget-auth/build/libs/*.jar
+          path: build/libs/*.jar
