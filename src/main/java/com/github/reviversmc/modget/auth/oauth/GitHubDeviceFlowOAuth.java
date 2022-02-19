@@ -18,7 +18,7 @@ public class GitHubDeviceFlowOAuth implements DeviceFlowOAuth {
 
     private final ObjectMapper jsonMapper;
     private final OkHttpClient okHttpClient;
-    private final String clientId = System.getenv("modget_app_client_id");
+    private final String clientId;
     private final String scopesInURL;
     private final TokenInstance tokenInstance;
 
@@ -27,10 +27,13 @@ public class GitHubDeviceFlowOAuth implements DeviceFlowOAuth {
             @Assisted List<String> tokenScopes,
             ObjectMapper jsonMapper,
             OkHttpClient okHttpClient,
+            @Assisted("githubAppClientId") String clientId,
             TokenInstanceFactory tokenInstanceFactory
     ) {
         this.jsonMapper = jsonMapper;
         this.okHttpClient = okHttpClient;
+        this.clientId = clientId;
+        this.tokenInstance = tokenInstanceFactory.create(tokenScopes);
 
         StringBuilder urlScopeBuilder = new StringBuilder();
         for (String scope : tokenScopes) {
@@ -38,8 +41,6 @@ public class GitHubDeviceFlowOAuth implements DeviceFlowOAuth {
         }
 
         scopesInURL = urlScopeBuilder.substring(0, urlScopeBuilder.length() - 3); //Get rid of the last "%20".
-
-        this.tokenInstance = tokenInstanceFactory.create(tokenScopes);
     }
 
     @Override

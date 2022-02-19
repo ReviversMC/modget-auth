@@ -22,8 +22,8 @@ public class GitHubWebFlowOAuth implements WebFlowOAuth {
 
     private final ObjectMapper jsonMapper;
     private final OkHttpClient okHttpClient;
-    private final String clientId = System.getenv("modget_app_client_id");
-    private final String clientSecret = System.getenv("modget_app_client_secret");
+    private final String clientId;
+    private final String clientSecret;
     private final String scopesInURL;
     private final TokenInstance tokenInstance;
 
@@ -33,11 +33,16 @@ public class GitHubWebFlowOAuth implements WebFlowOAuth {
             @Assisted List<String> tokenScopes,
             ObjectMapper jsonMapper,
             OkHttpClient okHttpClient,
+            @Assisted("githubAppClientId") String clientId,
+            @Assisted("githubAppClientSecret") String clientSecret,
             TokenInstanceFactory tokenInstanceFactory
     ) {
 
         this.jsonMapper = jsonMapper;
         this.okHttpClient = okHttpClient;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.tokenInstance = tokenInstanceFactory.create(tokenScopes);
 
         StringBuilder urlScopeBuilder = new StringBuilder();
         for (String scope : tokenScopes) {
@@ -45,8 +50,6 @@ public class GitHubWebFlowOAuth implements WebFlowOAuth {
         }
 
         scopesInURL = urlScopeBuilder.substring(0, urlScopeBuilder.length() - 3); //Get rid of the last "%20".
-
-        this.tokenInstance = tokenInstanceFactory.create(tokenScopes);
     }
 
 
