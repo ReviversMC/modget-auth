@@ -2,8 +2,8 @@ package com.github.reviversmc.modget.auth.oauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.reviversmc.modget.auth.apicalls.OAuthAccessTokenPojo;
-import com.github.reviversmc.modget.auth.manager.TokenInstance;
-import com.github.reviversmc.modget.auth.manager.TokenInstanceFactory;
+import com.github.reviversmc.modget.auth.instance.TokenInstance;
+import com.github.reviversmc.modget.auth.instance.TokenInstanceFactory;
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
 import okhttp3.OkHttpClient;

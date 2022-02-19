@@ -1,6 +1,6 @@
 package com.github.reviversmc.modget.auth.oauth;
 
-import com.github.reviversmc.modget.auth.manager.TokenInstance;
+import com.github.reviversmc.modget.auth.instance.TokenInstance;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

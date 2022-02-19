@@ -1,4 +1,4 @@
-package com.github.reviversmc.modget.auth.manager;
+package com.github.reviversmc.modget.auth.instance;
 
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedFactory;
