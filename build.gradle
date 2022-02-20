@@ -63,9 +63,10 @@ test {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact(shadowJar) {
-                builtBy shadowJar
-            }
+            artifactId = project.name
+            groupId = project.group
+            version = project.version
+            from components.java
         }
     }
 
