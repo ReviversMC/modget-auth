@@ -59,11 +59,3 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifact shadowJar
-        }
-    }
-}
