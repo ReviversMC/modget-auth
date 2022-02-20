@@ -8,7 +8,7 @@ public interface TokenInstance {
 
     /**
      * Gets the scopes guaranteed by this instance, as long as there is a token.
-     * @return A {@link List<String>} of guaranteed scopes for a taken.
+     * @return A {@link List} of guaranteed scopes for a taken.
      */
     List<String> getGuaranteedScopes();
 

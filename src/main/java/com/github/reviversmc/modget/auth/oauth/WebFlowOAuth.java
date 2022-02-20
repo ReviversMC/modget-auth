@@ -25,7 +25,7 @@ public interface WebFlowOAuth {
      * @param code The code provided by the callback from {@link WebFlowOAuth#startWebFlow(String)}.
      *             The code is NOT provided by {@link WebFlowOAuth#startWebFlow(String)}.
      *             The callback url should receive the code, which is picked up by a server.
-     * @return A {@link Optional<TokenInstance>} that the token is held in.
+     * @return An {@link Optional} that the token is held in, if successful.
      * @throws IOException If the completion fails.
      */
     Optional<TokenInstance> completeWebFlow(String code) throws IOException;
