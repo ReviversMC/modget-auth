@@ -59,3 +59,20 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(shadowJar) {
+                builtBy shadowJar
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        maven {
+            mavenLocal()
+        }
+    }
+}
