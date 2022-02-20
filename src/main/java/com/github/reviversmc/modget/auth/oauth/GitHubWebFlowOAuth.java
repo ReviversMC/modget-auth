@@ -12,8 +12,10 @@ import okhttp3.Response;
 
 import java.awt.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -54,18 +56,14 @@ public class GitHubWebFlowOAuth implements WebFlowOAuth {
 
 
     @Override
-    public boolean startWebFlow(String state) throws URISyntaxException, IOException {
-        Desktop desktop = Desktop.getDesktop();
-        if (desktop.isSupported(Desktop.Action.BROWSE)) return false;
+    public URL startWebFlow(String state) throws MalformedURLException {
 
-        desktop.browse(
-                new URI(
-                        "https://github.com/login/oauth/authorize?client_id=" + clientId +
-                                "&state=" + state +
-                                "&scope=" + scopesInURL
-                )
+        return new URL(
+                "https://github.com/login/oauth/authorize?client_id=" + clientId +
+                        "&state=" + state +
+                        "&scope=" + scopesInURL
         );
-        return true;
+
     }
 
     @Override

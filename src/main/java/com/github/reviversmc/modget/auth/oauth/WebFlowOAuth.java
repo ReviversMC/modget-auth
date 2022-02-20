@@ -3,7 +3,9 @@ package com.github.reviversmc.modget.auth.oauth;
 import com.github.reviversmc.modget.auth.instance.TokenInstance;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Optional;
 
 public interface WebFlowOAuth {
@@ -11,13 +13,14 @@ public interface WebFlowOAuth {
     /**
      * Starts a web flow OAuth process.
      *
-     * @param state  An unguessable random string used to authenticate the request.
-     * @return true if web flow could be started, false otherwise. Does not guarantee that web flow is successful.
+     * @param state An unguessable random string used to authenticate the request.
+     * @return The URL to be used to start the web flow.
      */
-    boolean startWebFlow(String state) throws URISyntaxException, IOException;
+    URL startWebFlow(String state) throws MalformedURLException;
 
     /**
      * Completes a web flow OAuth process.
+     *
      * @param code The code provided by the callback from {@link WebFlowOAuth#startWebFlow(String)}.
      *             The code is NOT provided by {@link WebFlowOAuth#startWebFlow(String)}.
      *             The callback url should receive the code, which is picked up by a server.
