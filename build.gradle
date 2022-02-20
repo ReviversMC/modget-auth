@@ -67,12 +67,10 @@ artifacts {
 publishing {
     publications {
         maven(MavenPublication) {
-            artifact(shadowJar) {
-                artifactId project.name
-                groupId project.group
-                version project.version
-                builtBy shadowJar
-            }
+            artifactId project.name
+            groupId project.group
+            version project.version
+            artifact shadowJar
         }
     }
     repositories {
