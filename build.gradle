@@ -66,4 +66,9 @@ publishing {
             artifact shadowJar
         }
     }
+    repositories {
+        maven {
+            mavenLocal()
+        }
+    }
 }
