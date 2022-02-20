@@ -35,7 +35,7 @@ dependencies {
     // JUnit Jupiter for testing
     testImplementation "org.junit.jupiter:junit-jupiter:${project.junit_version}"
 
-    // compileOnly "com.github.spotbugs:spotbugs:${project.spotbugs_version}"
+    compileOnly "com.github.spotbugs:spotbugs:${project.spotbugs_version}"
 }
 
 compileJava {
@@ -65,9 +65,10 @@ test {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-            artifact(shadowJar) {
-                builtBy shadowJar
-            }
+            artifactId = project.name
+            groupId = project.group
+            version = project.version
+            from components.java
         }
     }
 
