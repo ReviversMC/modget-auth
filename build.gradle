@@ -59,23 +59,3 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
-
-publishing {
-    publications {
-        "$project.name"(MavenPublication) {
-            artifact(shadowJar) {
-                groupId project.group
-                artifactId project.name
-                version project.version
-                builtBy shadowJar
-            }
-        }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        maven {
-            mavenLocal()
-        }
-    }
-}
