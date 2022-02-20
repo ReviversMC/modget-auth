@@ -60,9 +60,16 @@ test {
     useJUnitPlatform()
 }
 
+artifacts {
+    archives shadowJar
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
+            artifactId project.name
+            groupId project.group
+            version project.version
             artifact shadowJar
         }
     }
