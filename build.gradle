@@ -54,7 +54,6 @@ jar {
 }
 
 shadowJar {
-    configurations = [project.configurations.shadow]
     archiveClassifier.set("")
 }
 
