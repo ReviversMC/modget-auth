@@ -10,7 +10,7 @@ public interface DeviceFlowOAuth {
 
     /**
      * Starts a Device Flow OAuth process.
-     *
+     * <p>
      * This method does NOT automatically display the verification code to the user.
      * Instead, this method returns a {@link DeviceFlowVerifyCodePojo},
      * which contains the info needed to be shown to a user.
