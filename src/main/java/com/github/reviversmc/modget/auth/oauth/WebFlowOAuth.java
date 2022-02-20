@@ -15,6 +15,7 @@ public interface WebFlowOAuth {
      *
      * @param state An unguessable random string used to authenticate the request.
      * @return The URL to be used to start the web flow.
+     * @throws MalformedURLException If the URL formation fails.
      */
     URL startWebFlow(String state) throws MalformedURLException;
 
@@ -25,6 +26,7 @@ public interface WebFlowOAuth {
      *             The code is NOT provided by {@link WebFlowOAuth#startWebFlow(String)}.
      *             The callback url should receive the code, which is picked up by a server.
      * @return A {@link Optional<TokenInstance>} that the token is held in.
+     * @throws IOException If the completion fails.
      */
     Optional<TokenInstance> completeWebFlow(String code) throws IOException;
 

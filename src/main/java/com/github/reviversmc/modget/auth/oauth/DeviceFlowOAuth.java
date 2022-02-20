@@ -17,6 +17,7 @@ public interface DeviceFlowOAuth {
      *
      * @return A {@link DeviceFlowVerifyCodePojo},which contains a verification code
      * required by {@link DeviceFlowOAuth#completeDeviceFlow(DeviceFlowVerifyCodePojo)}
+     * @throws IOException If the request fails.
      */
     DeviceFlowVerifyCodePojo startDeviceFlow() throws IOException;
 
