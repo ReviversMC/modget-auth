@@ -1,18 +1,26 @@
 plugins {
-    id "java"
-    id "maven-publish"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
-group = project.maven_group.toString()
 version = project.version
+group = project.maven_group
+
+configurations {
+    includeTransitive {
+        transitive = true
+    }
+}
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven {
+        url = "https://mvnrepository.com/"
+    }
     maven {
         url = "https://jitpack.io"
     }
@@ -20,7 +28,6 @@ repositories {
 
 
 dependencies {
-
     implementation "com.fasterxml.jackson.core:jackson-core:${project.jackson_version}"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${project.jackson_version}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${project.jackson_version}"
@@ -37,12 +44,20 @@ dependencies {
     // JUnit Jupiter for testing
     testImplementation "org.junit.jupiter:junit-jupiter:${project.junit_version}"
 
-    compileOnly "com.github.spotbugs:spotbugs:${project.spotbugs_version}"
+    // compileOnly "com.github.spotbugs:spotbugs:${project.spotbugs_version}"
 }
 
-compileJava {
-    options.encoding "UTF-8"
-    options.release.set(11)
+tasks.withType(JavaCompile).configureEach {
+	// ensure that the encoding is set to UTF-8, no matter what the system default is
+	// this fixes some edge cases with special characters not displaying correctly
+	// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+	// If Javadoc is generated, this must be specified in that task too.
+	it.options.encoding = "UTF-8"
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
 }
 
 // java {
@@ -51,8 +66,12 @@ compileJava {
 // }
 
 jar {
-    from "LICENSE"
-    manifest.attributes "Multi-Release": "true"
+	from("LICENSE") {
+		rename { "${it}_${project.name}"}
+	}
+    manifest {
+        attributes 'Multi-Release': 'true'
+    }
 }
 
 shadowJar {
@@ -65,8 +84,8 @@ test {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
+	publications {
+		mavenJava(MavenPublication) {
             artifact(shadowJar) {
                 builtBy shadowJar
             }
