@@ -21,7 +21,7 @@ jobs:
       - name: ShadowJar modget-auth
         run: ./gradlew :shadowJar
       - name: Upload modget-auth
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: modget-auth-dev
           path: build/libs/*.jar
